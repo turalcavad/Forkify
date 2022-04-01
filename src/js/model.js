@@ -3,7 +3,6 @@ export const state = {
 };
 
 export const loadRecipe = async function (id) {
-  if (!id) return;
 
   const res = await fetch(
     `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
