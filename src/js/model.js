@@ -45,4 +45,8 @@ export const loadSearchResults = async function (query) {
   } catch (error) {}
 };
 
-loadSearchResults('pizza');
+
+
+export const getSearchResultsPage = function (page) {
+  return state.search.results.slice(0, 9)
+}

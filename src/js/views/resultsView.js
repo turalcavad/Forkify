@@ -4,14 +4,11 @@ class ResultsView extends View {
   _parentElement = document.querySelector('.results');
   _errorMessage = 'No recipes found for your query. Please try again!';
 
-
   _generateMarkup() {
-    console.log(this._data);
     return this._data.map(this._generateMarkupPreview).join('');
   }
 
   _generateMarkupPreview(result) {
-    console.log(result);
     return `  
     <li class="preview">
       <a class="preview__link preview__link--active" href="#${result.id}">

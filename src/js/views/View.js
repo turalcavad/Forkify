@@ -6,7 +6,7 @@ export default class View {
       return this.renderError(this._errorMessage);
     this._data = data;
     const markup = this._generateMarkup();
-    console.log(markup);
+
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }

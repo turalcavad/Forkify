@@ -40,10 +40,8 @@ const controlSearchResults = async function () {
   // 1) loading search results
   await model.loadSearchResults(query);
 
-  console.log(model.state.search.results);
   // 2) rendering search results
   resultsView.render(model.state.search.results);
-  resultsView._generateMarkupPreview();
 };
 controlSearchResults();
 const init = function () {
