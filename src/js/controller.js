@@ -2,6 +2,7 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -41,12 +42,26 @@ const controlSearchResults = async function () {
   await model.loadSearchResults(query);
 
   // 2) rendering search results
-  resultsView.render(model.state.search.results);
+  resultsView.render(model.getSearchResultsPage(1));
+
+  // 3) render initial pagination buttons
+  paginationView.render(model.state.search);
 };
+
+const controlPagination = function (goToPage) {
+  console.log(goToPage);
+  // 2) render NEW search results
+  resultsView.render(model.getSearchResultsPage(goToPage));
+
+  // 3) render NEW initial pagination buttons
+  paginationView.render(model.state.search);
+};
+
 controlSearchResults();
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 init();
 // https://forkify-api.herokuapp.com/v2
