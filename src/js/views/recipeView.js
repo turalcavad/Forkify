@@ -1,56 +1,19 @@
-class RecipeView {
-  #parentElement = document.querySelector('.recipe');
-  #data;
-  #errorMessage = 'We could not find that recipe. Please try another one';
+import View from './View.js';
 
-  render(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  #clear() {
-    this.#parentElement.innerHTML = '';
-  }
-  renderspinner = function () {
-    const markup = `
-    <div class="spinner">
-    <svg>
-      <use href="src/img/icons.svg#icon-loader"></use>
-    </svg>
-    </div>
-    `;
-
-    this.#parentElement.innerHTML = '';
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  };
-
-  renderError(message = this.#errorMessage) {
-    const markup = `
-    <div class="error">
-      <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle"></use>
-        </svg>
-      </div>
-      <p${message}</p>
-    </div>
-    `;
-    this.#clear;
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
+class RecipeView extends View {
+  _parentElement = document.querySelector('.recipe');
+  _errorMessage = 'We could not find that recipe. Please try another one';
+  
   addHandlerRender(handler) {
     window.addEventListener('hashchange', handler);
     window.addEventListener('load', handler);
   }
 
-  #generateMarkup() {
+  _generateMarkup() {
     return ` <figure class="recipe__fig">
-    <img src="${this.#data.image}" alt="" class="recipe__img" />
+    <img src="${this._data.image}" alt="" class="recipe__img" />
       <h1 class="recipe__title">
-      <span>${this.#data.title}</span>
+      <span>${this._data.title}</span>
       </h1>
     </figure>
 
@@ -60,7 +23,7 @@ class RecipeView {
           <use href="src/img/icons.svg#icon-clock"></use>
         </svg>
         <span class="recipe__info-data recipe__info-data--minutes">${
-          this.#data.cooking_time
+          this._data.cooking_time
         }</span>
         <span class="recipe__info-text">minutes</span>
       </div>
@@ -69,7 +32,7 @@ class RecipeView {
           <use href="src/img/icons.svg#icon-users"></use>
         </svg>
         <span class="recipe__info-data recipe__info-data--people">${
-          this.#data.servings
+          this._data.servings
         }</span>
         <span class="recipe__info-text">servings</span>
 
@@ -103,7 +66,7 @@ class RecipeView {
       <h2 class="heading--2">Recipe ingredients</h2>
       <ul class="recipe__ingredient-list">
       
-       ${this.#data.ingredients.map(this.#generateMarkupIngredient).join('')}
+       ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
 
         
       </ul>
@@ -114,13 +77,13 @@ class RecipeView {
       <p class="recipe__directions-text">
         This recipe was carefully designed and tested by
         <span class="recipe__publisher">${
-          this.#data.publisher
+          this._data.publisher
         }</span>. Please check out
         directions at their website.
       </p>
       <a
         class="btn--small recipe__btn"
-        href="${this.#data.source_url}"
+        href="${this._data.source_url}"
         target="_blank"
       >
         <span>Directions</span>
@@ -131,7 +94,7 @@ class RecipeView {
     </div>`;
   }
 
-  #generateMarkupIngredient(ing) {
+  _generateMarkupIngredient(ing) {
     return `
       <li class="recipe__ingredient">
          <svg class="recipe__icon">
