@@ -2,9 +2,11 @@ export default class View {
   _data;
 
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError(this._errorMessage);
     this._data = data;
     const markup = this._generateMarkup();
-    console.log(markup)
+    console.log(markup);
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
@@ -33,10 +35,10 @@ export default class View {
           <use href="src/img/icons.svg#icon-alert-triangle"></use>
         </svg>
       </div>
-      <p${message}</p>
+      <p>${message}</p>
     </div>
     `;
-    this._clear;
+    this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 }
